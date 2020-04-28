@@ -1,0 +1,3 @@
+# At time of writing, stable HIE only supports up to GHC 8.8.2, and LTS 15.3 is
+# the latest resolver with that.
+resolver: lts-15.3

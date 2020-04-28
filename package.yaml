@@ -1,0 +1,36 @@
+name: hs-thread-exercise
+version: '0.1.1'
+synopsis: Haskell thread exercise
+author: Maun Suang Boey <no-reply@example.com>
+maintainer: Maun Suang Boey <no-reply@example.com>
+copyright: © 2017-2020 Maun Suang Boey, and others
+license: MIT
+tested-with: GHC==8.8.2
+
+ghc-options: -Wall -Wwarn -fwarn-tabs
+
+dependencies:
+  - async
+  - base
+  - core-data
+  - core-text
+  - core-program >= 0.2.4
+  - strict-concurrency
+  - time
+
+executables:
+  hs-thread-exercise:
+    source-dirs:
+      - src
+    main: HsThreadExercise.hs
+    ghc-options: -threaded
+
+tests:
+  check:
+    dependencies:
+      - hspec
+    ghc-options: -threaded
+    source-dirs:
+      - tests
+    main: TestSuite.hs
+    other-modules: []
