@@ -3,7 +3,7 @@
 module Main where
 
 import Control.Concurrent.MVar
-import Control.Monad (forever)
+import Control.Monad (forever, forM_)
 import Core.Program
 import Core.System
 import Core.Text
@@ -13,13 +13,14 @@ foreverWriteTimeTo :: MVar String -> Program None ()
 foreverWriteTimeTo mv = forever $ do
     sleep 5
     now <- liftIO getCurrentTime
+    _ <- liftIO $ tryTakeMVar mv
     liftIO $ putMVar mv $ show now
 
 foreverPrintFrom :: MVar String -> Program None ()
 foreverPrintFrom mv = forever $ do
     -- s <- liftIO $ readMVar mv
-    s <- liftIO $ takeMVar mv
-    write $ intoRope s
+    maybeString <- liftIO $ tryReadMVar mv
+    forM_ maybeString $ write . intoRope
     sleep 2
 
 program :: Program None ()
